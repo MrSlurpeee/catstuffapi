@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "UVLnRq+9irY=",
+  "success": true,
+  "projectFilePath": "/Users/plate/RiderProjects/BlazorCatAPI/BlazorCatAPI/BlazorCatAPI.csproj",
+  "expectedPackageFiles": [
+    "/Users/plate/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.1/microsoft.aspnetcore.app.internal.assets.10.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "BlazorCatAPI/1.0.0": {
+        "runtime": {
+          "BlazorCatAPI.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BlazorCatAPI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

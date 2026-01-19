@@ -1,0 +1,107 @@
+﻿@page "/"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
+
+<PageTitle>Cat Search</PageTitle>
+
+<div class="container" style="max-width: 600px; margin-top: 50px;">
+    <h1 class="text-center mb-4">🐱 Cat Breed Search (Server)</h1>
+
+    <div class="input-group mb-3">
+        <input @bind="searchTerm" @bind:event="oninput" @onkeyup="CheckEnter" 
+               type="text" class="form-control" placeholder="Enter breed (for example - use Siberian or something)" />
+        <button class="btn btn-primary" @onclick="SearchCat" disabled="@isLoading">
+            @(isLoading ? "Loading" : "Search")
+        </button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    @if (catData != null)
+    {
+        <div class="card shadow-sm">
+            @if (!string.IsNullOrEmpty(catData.ReferenceImageId))
+            {
+                <img src="@($"https://cdn2.thecatapi.com/images/{catData.ReferenceImageId}.jpg")" 
+                     class="card-img-top" 
+                     alt="@catData.Name" 
+                     style="max-height: 400px; object-fit: contain; background-color: #f8f9fa;">
+            }
+            <div class="card-body">
+                <h3 class="card-title">@catData.Name</h3>
+                <h6 class="card-subtitle mb-2 text-muted">@catData.Temperament</h6>
+                <p class="card-text mt-3">@catData.Description</p>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private const string ApiKey = "";
+
+    private string searchTerm = "";
+    private string errorMessage = "";
+    private bool isLoading = false;
+    private CatBreed? catData;
+
+    private async Task CheckEnter(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter") await SearchCat();
+    }
+
+    private async Task SearchCat()
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm)) return;
+
+        isLoading = true;
+        errorMessage = "";
+        catData = null;
+
+        try
+        {
+            var client = ClientFactory.CreateClient();
+            
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("x-api-key", ApiKey);
+            
+            var url = $"https://api.thecatapi.com/v1/breeds/search?q={searchTerm}";
+            var response = await client.GetStringAsync(url);
+
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var breeds = JsonSerializer.Deserialize<List<CatBreed>>(response, options);
+
+            if (breeds != null && breeds.Any())
+            {
+                catData = breeds.First();
+            }
+            else
+            {
+                errorMessage = "No cats found! Try 'Bengal' or 'Siberian'.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+    // this model is typically done in our models folder - unfortunately free tier stuff on azure limits :/
+    public class CatBreed
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Temperament { get; set; }
+        
+        [JsonPropertyName("reference_image_id")]
+        public string ReferenceImageId { get; set; }
+    }
+}
