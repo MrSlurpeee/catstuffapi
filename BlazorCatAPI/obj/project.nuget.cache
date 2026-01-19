@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "UVLnRq+9irY=",
+  "dgSpecHash": "L5EpTcHn3l4=",
   "success": true,
-  "projectFilePath": "/Users/plate/RiderProjects/BlazorCatAPI/BlazorCatAPI/BlazorCatAPI.csproj",
+  "projectFilePath": "C:\\advance C#\\catstuffapi\\BlazorCatAPI\\BlazorCatAPI.csproj",
   "expectedPackageFiles": [
-    "/Users/plate/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.1/microsoft.aspnetcore.app.internal.assets.10.0.1.nupkg.sha512"
+    "C:\\Users\\Luke\\.nuget\\packages\\microsoft.netcore.app.ref\\9.0.12\\microsoft.netcore.app.ref.9.0.12.nupkg.sha512",
+    "C:\\Users\\Luke\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\9.0.12\\microsoft.windowsdesktop.app.ref.9.0.12.nupkg.sha512",
+    "C:\\Users\\Luke\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\9.0.12\\microsoft.aspnetcore.app.ref.9.0.12.nupkg.sha512",
+    "C:\\Users\\Luke\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\9.0.12\\microsoft.netcore.app.host.win-x64.9.0.12.nupkg.sha512"
   ],
   "logs": []
 }
